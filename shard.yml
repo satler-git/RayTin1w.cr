@@ -1,0 +1,13 @@
+name: raytin1w
+version: 0.1.0
+
+authors:
+  - satler-git <mitsclatw24@mbr.nifty.com>
+
+targets:
+  raytin1w:
+    main: src/raytin1w.cr
+
+crystal: 1.9.2
+
+license: MIT

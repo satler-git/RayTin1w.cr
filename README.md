@@ -1,2 +1,27 @@
-# RayTin1w.cr
-Raytracing in one weekend with crystal lang. (for learnning)
+# raytin1w
+
+TODO: Write a description here
+
+## Installation
+
+TODO: Write installation instructions here
+
+## Usage
+
+TODO: Write usage instructions here
+
+## Development
+
+TODO: Write development instructions here
+
+## Contributing
+
+1. Fork it (<https://github.com/your-github-user/raytin1w/fork>)
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create a new Pull Request
+
+## Contributors
+
+- [satler-git](https://github.com/your-github-user) - creator and maintainer
