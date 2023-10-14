@@ -1,0 +1,24 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "build",
+        "type": "shell",
+        "command": "crystal build src/raytin1w.cr",
+        "problemMatcher": [],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        }
+      },{
+        "label": "crystal: build current file (debug)",
+        "type": "shell",
+        "command": "crystal build --debug ${relativeFile} -o bin/${fileBasenameNoExtension}"
+      },{
+        "label": "crystal: write image to image.ppm",
+        "type": "shell",
+        "command": "crystal run src/raytin1w.cr > image.ppm"
+      }
+    ]
+  }
+  

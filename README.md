@@ -32,6 +32,9 @@ crystal run ./src/raytin1w.cr > image.ppm
 ## Development
 
 TODO: Write development instructions here
+Need crystal formatters for lldb.
+
+- [crystal_formatters.py](https://github.com/crystal-lang/crystal/blob/master/etc/lldb/crystal_formatters.py)
 
 ## Contributing
 
