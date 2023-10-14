@@ -1,14 +1,29 @@
 # raytin1w
 
-TODO: Write a description here
+This repo for Ray tracing in one weekend.
 
 ## Installation
 
-TODO: Write installation instructions here
+Clone the repo.
+
+```bash
+git clone https://github.com/satler-git/RayTin1w.cr.git
+```
+
+And install shards.
+
+```bash
+cd RayTin1w.cr
+shards install
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+Write to ppm.
+
+```bash
+crystal run ./src/raytin1w.cr > image.ppm
+```
 
 ## Development
 
