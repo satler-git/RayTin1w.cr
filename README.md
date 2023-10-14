@@ -2,6 +2,10 @@
 
 This repo for Ray tracing in one weekend.
 
+## Next task
+
+vec3の変数とメソッド
+
 ## Installation
 
 Clone the repo.
