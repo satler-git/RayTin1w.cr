@@ -1,9 +1,14 @@
+#インポート
+require "math"
 
 #raytracer
 #レイトレーシング用のメインメソッド
-
+#3座標のベクトル型
 class Vec3
-  
+  #ゲッターとセッター
+  property e
+  getter  e : Array(Float64)
+
   #3座標のベクタークラスをinit
   def initialize
     #init
@@ -56,9 +61,12 @@ class Vec3
     ase(1/t)
   end
 
+  def length_squared() : Float64
+    e[0]*e[0] + e[1]*e[1] + e[2]*e[2]
+  end
+
   def length : Float64
-    #return sqrt(length_squared());
-    0.0
+    Math.sqrt(length_squared())
   end
 end
 
@@ -92,6 +100,10 @@ def raytracer()
   end
   STDERR.puts "\nDone.\n"
 end
+
+#型エイリアス
+alias Point3 = Vec3
+alias Color = Vec3
 
 #メインモジュール
 module Raytin1w
