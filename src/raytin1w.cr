@@ -57,7 +57,9 @@ class Vec3
   end
 
   def length : Float64
-    
+    #return sqrt(length_squared());
+    0.0
+  end
 end
 
 def raytracer()
