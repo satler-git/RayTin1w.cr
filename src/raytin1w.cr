@@ -70,10 +70,8 @@ class Vec3
   end
 end
 
-def raytracer()
+def raytracer(image_width : Int32, image_height : Int32)
   #画像の大きさ
-  image_width = 256
-  image_height = 256
 
   #画像サイズの出力
   puts "P3\n#{image_width} #{image_height}\n255\n"
@@ -110,7 +108,7 @@ module Raytin1w
   VERSION = "0.1.0"
 
   def self.main
-    raytracer()
+    raytracer(1920, 1080)
   end
 
   self.main
