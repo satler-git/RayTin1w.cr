@@ -77,7 +77,7 @@ def raytracer(image_width : Int32, image_height : Int32)
   puts "P3\n#{image_width} #{image_height}\n255\n"
   
   #高さ文繰り返す
-  (image_height - 1).downto(0) do |j|
+  image_height.times do |j|
     STDERR.puts "\rScanlines remaining: #{j} "
     STDERR.flush
     # 横幅分繰り返す
