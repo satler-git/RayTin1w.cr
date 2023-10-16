@@ -6,13 +6,13 @@ require "math"
 #3座標のベクトル型
 class Vec3
   #ゲッターとセッター
-  property e
+  property e : Array(Float64)
   getter  e : Array(Float64)
 
   #3座標のベクタークラスをinit
   def initialize
     #init
-    @e : Array(Int32) = [0.0, 0.0, 0.0]
+    @e : Array(Float64) = [0.0, 0.0, 0.0]
   end
 
   def initialize(e0 : Float64, e1 : Float64, e2 : Float64)
