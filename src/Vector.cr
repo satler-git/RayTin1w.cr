@@ -1,6 +1,13 @@
 #インポート
 require "math"
 
+# Fload64のオーバーロード
+struct Float64
+  def *(e : Vec3) : Vec3
+    Vec3.new(e[0] * self, e[1] * self, e[2] * self)
+  end
+end
+
 
 #3座標のベクトル型
 class Vec3
@@ -37,29 +44,25 @@ class Vec3
     Vec3.new(-@e[0], -@e[1], -@e[2])
   end
 
+  #二項演算子のオーバーロード
   #算術演算子の-
-  def -(u : Vec3,v : Vec3) : Vec3
-    Vec3.new(u.e[0] - v.e[0], u.e[1] - v.e[1], u.e[2] - v.e[2])
+  def -(v : Vec3) : Vec3
+    Vec3.new(@e[0] - v.e[0], @e[1] - v.e[1], @e[2] - v.e[2])
   end
 
   #算術演算子の+
-  def +(u : Vec3,v : Vec3) : Vec3
-    Vec3.new(u.e[0] + v.e[0], u.e[1] + v.e[1], u.e[2] + v.e[2])
+  def +(v : Vec3) : Vec3
+    Vec3.new(@e[0] + v.e[0], @e[1] + v.e[1], @e[2] + v.e[2])
   end
 
   #算術演算子の*
-  def *(t : Float64,v : Vec3) : Vec3
-    Vec3.new(t*v.e[0], t*v.e[1], t*v.e[2])
-  end
-
-  #上の*の逆の時用
-  def *(v : Vec3,t : Float64) : Vec3
-    t * v
+  def *(t : Float64) : Vec3
+    Vec3.new(@e[0] * t, @e[1] * t, @e[2] * t)
   end
 
   #算術演算子の/
-  def /(v : Vec3,t : Float64) : Vec3
-    (1/t) * v
+  def /(t : Float64) : Vec3
+    Vec3.new(@e[0] / t, @e[1] / t, @e[2] / t)
   end
 
   def [](i : Int32) : Float64
@@ -93,20 +96,6 @@ class Vec3
     io << "#{@e[0]} #{@e[1]} #{@e[2]}"
   end
 
-  def dot(u : Vec3,v : Vec3) : Float64
-    u.e[0] * v.e[0] + u.e[1] * v.e[1] + u.e[2] * v.e[2]
-  end
-
-  def cross(u : Vec3,v : Vec3) : Vec3
-    Vec3.new(u.e[1] * v.e[2] - u.e[2] * v.e[1],
-    u.e[2] * v.e[0] - u.e[0] * v.e[2],
-    u.e[0] * v.e[1] - u.e[1] * v.e[0])
-  end
-
-  def unit_vector(v : Vec3)
-    v / v.length()
-  end
-
   def length_squared() : Float64
     e[0]*e[0] + e[1]*e[1] + e[2]*e[2]
   end
@@ -119,6 +108,22 @@ end
 alias Point3 = Vec3
 alias Color = Vec3
 
+#Vectorのユーティリティ関数
+def dot(u : Vec3,v : Vec3) : Float64
+  u.e[0] * v.e[0] + u.e[1] * v.e[1] + u.e[2] * v.e[2]
+end
+
+def cross(u : Vec3,v : Vec3) : Vec3
+  Vec3.new(u.e[1] * v.e[2] - u.e[2] * v.e[1],
+  u.e[2] * v.e[0] - u.e[0] * v.e[2],
+  u.e[0] * v.e[1] - u.e[1] * v.e[0])
+end
+
+def unit_vector(v : Vec3)
+  v / v.length()
+end
+
+#色のユーティリティ関数
 def write_color(pixel_color : Color)
   color_space : Float64 = 255.999
   ir = (color_space * pixel_color.x()).round.to_i
