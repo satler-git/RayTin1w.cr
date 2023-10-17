@@ -13,7 +13,6 @@ def raytracer(image_width : Int32, image_height : Int32)
   #高さ文繰り返す
   image_height.times do |j|
     STDERR.puts "\rScanlines remaining: #{j} "
-    STDERR.flush
     # 横幅分繰り返す
     image_width.times do |i|
       pixel_color : Color =  Color.new(i/(image_width - 1).to_f64, j/(image_height - 1).to_f64, 0.25)
