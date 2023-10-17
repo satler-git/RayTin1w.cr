@@ -15,8 +15,12 @@ jobs:
       image: crystallang/crystal
 
     steps:
+    - name: Crystal Ameba Linter
+      uses: crystal-ameba/github-action@v0.8.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - uses: actions/checkout@v3
     - name: Install dependencies
       run: shards install
-    - name: Check formatting
-      run: crystal tool format --check
+    - name: Build
+      run: crystal build ./src/raytin1w.cr --debug --error-trace
