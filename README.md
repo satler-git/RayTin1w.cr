@@ -4,7 +4,7 @@ This repo for Ray tracing in one weekend.
 
 ## Next task
 
-vec3の変数とメソッド
+1.5 球のレンダリング
 
 ## Installation
 
