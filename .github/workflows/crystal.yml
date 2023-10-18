@@ -7,6 +7,29 @@ on:
     branches: [ "main" ]
 
 jobs:
+  Lint:
+
+    runs-on: ubuntu-latest
+
+    container:
+      image: crystallang/crystal
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install dependencies
+      run: shards install
+    - name: Ameba Linter
+      run: ./bin/ameba
+    - name: Ameba Linter Fix
+      run: ./bin/ameba --fix
+      if: failure()
+    - uses: EndBug/add-and-commit@v9
+      if: failure()
+      with:
+        author_name: Ameba Linter
+        message: 'Ameba Lint'
+
+
   build:
 
     runs-on: ubuntu-latest
