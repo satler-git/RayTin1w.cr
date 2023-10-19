@@ -1,6 +1,11 @@
 # raytin1w
 
+[![Crystal CI](https://github.com/satler-git/RayTin1w.cr/actions/workflows/crystal.yml/badge.svg)](https://github.com/satler-git/RayTin1w.cr/actions/workflows/crystal.yml)
+
 This repo for Ray tracing in one weekend.
+
+[Original](https://raytracing.github.io/books/RayTracingInOneWeekend.html)
+[Translated](https://inzkyk.booth.pm/items/2186534)
 
 ## Next task
 
