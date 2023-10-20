@@ -1,5 +1,6 @@
 require "math"
 require "./Vector"
+require "./MathConst"
 
 class Ray
   # セッターとゲッター(パブリック化)
@@ -28,12 +29,11 @@ class Ray
   end
 end
 
-def ray_color(r : Ray) : Color
-  t = hit_sphere(Point3.new(0, 0, -1), 0.5, r)
+def ray_color(r : Ray, world : Hittable) : Color
+  rec = HitRecord.new(Point3.new, 0.0, Vec3.new, true)
 
-  if t > 0.0
-    n : Vec3 = unit_vector(r.at(t) - Vec3.new(0, 0, -1))
-    return 0.5 * Color.new(n.x + 1, n.y + 1, n.z + 1)
+  if world.hit(r, 0, Float64::INFINITY, rec)
+    return 0.5 * (rec.normal + Color.new(1, 1, 1))
   end
 
   unit_direction : Vec3 = unit_vector(r.direction)

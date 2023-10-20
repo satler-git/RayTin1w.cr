@@ -11,14 +11,14 @@ end
 # 3座標のベクトル型
 class Vec3
   # ゲッターとセッター
-  property e
-  getter e
+  property e : Array(Float64)
+  def_clone
 
   # 3座標のベクタークラスをinit
   # 引数なしinit
   def initialize
     # init
-    @e : Array(Float64) = [0.0, 0.0, 0.0]
+    @e = [0.0, 0.0, 0.0]
   end
 
   # 引数ありinit
