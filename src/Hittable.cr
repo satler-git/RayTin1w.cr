@@ -17,8 +17,8 @@ struct HitRecord
   end
 
   def set_face_normal(r : Ray, outward_normal : Vec3)
-    front_face = dot(r.direction, outward_normal) < 0
-    @normal = front_face ? outward_normal : -outward_normal
+    @front_face = dot(r.direction, outward_normal) < 0
+    @normal = @front_face ? outward_normal : -outward_normal
   end
 
   
@@ -49,7 +49,7 @@ class HittableList < Hittable
   end
 
   def hit(r : Ray, t_min : Float64, t_max : Float64, rec : HitRecord) : Bool
-    temp_rec = HitRecord.new(Point3.new, 0.0, Vec3.new, true)  
+    temp_rec = HitRecord.new(Point3.new, 0.0, Vec3.new, false)  
     hit_anything = false
     closest_so_far = t_max
 
