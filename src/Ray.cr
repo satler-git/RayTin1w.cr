@@ -29,20 +29,28 @@ class Ray
 end
 
 def ray_color(r : Ray) : Color
-  if hit_sphere(Point3.new(0, 0, -1), 0.5, r)
-    return Color.new(1, 0, 0)
+  t = hit_sphere(Point3.new(0, 0, -1), 0.5, r)
+
+  if t > 0.0
+    n : Vec3 = unit_vector(r.at(t) - Vec3.new(0, 0, -1))
+    return 0.5 * Color.new(n.x + 1, n.y + 1, n.z + 1)
   end
 
   unit_direction : Vec3 = unit_vector(r.direction)
-  t = 0.5*(unit_direction.y + 1.0)
-  (1.0 - t)*Color.new(1.0, 1.0, 1.0) + t*Color.new(0.5, 0.7, 1.0)
+  t = 0.5 * (unit_direction.y + 1.0)
+  return (1.0 - t) * Color.new(1.0, 1.0, 1.0) + t * Color.new(0.5, 0.7, 1.0)
 end
 
-def hit_sphere(center : Point3, radius : Float64, r : Ray) : Bool
+def hit_sphere(center : Point3, radius : Float64, r : Ray) : Float64
   oc : Vec3 = r.origin - center
   a = dot(r.direction, r.direction)
   b = 2.0 * dot(oc, r.direction)
-  c = dot(oc, oc) - radius*radius
-  discriminant = b*b - 4*a*c
-  discriminant > 0
+  c = dot(oc, oc) - radius * radius
+  discriminant = b * b - 4 * a * c
+
+  if discriminant < 0
+    return -1.0
+  else
+    return (-b - Math.sqrt(discriminant)) / (2.0 * a)
+  end
 end
