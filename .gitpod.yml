@@ -1,0 +1,7 @@
+image: crystallang/crystal
+
+# 起動時に実行するコマンド
+tasks:
+    - init: shard install
+      command: shards install
+      
