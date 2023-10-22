@@ -124,12 +124,3 @@ end
 def unit_vector(v : Vec3)
   v / v.length
 end
-
-# 色のユーティリティ関数
-def write_color(pixel_color : Color)
-  color_space : Float64 = 255.999
-  ir = (color_space * pixel_color.x).round.to_i
-  ig = (color_space * pixel_color.y).round.to_i
-  ib = (color_space * pixel_color.z).round.to_i
-  puts "#{ir} #{ig} #{ib} \n"
-end
