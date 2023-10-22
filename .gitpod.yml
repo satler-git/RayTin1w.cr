@@ -4,4 +4,3 @@ image: crystallang/crystal
 tasks:
     - init: shard install
       command: shards install
-      
