@@ -8,6 +8,8 @@ require "./Ray"
 # 当たり判定
 require "./Hittable"
 require "./Sphere"
+# ユーティリティ関数
+require "./Utils"
 
 # raytracer
 # レイトレーシング用のメインメソッド
@@ -51,8 +53,6 @@ def raytracer(image_width : Int32)
   end
   STDERR.puts "\nDone.\n"
 end
-
-# 型エイリアス
 
 # メインモジュール
 module Raytin1w

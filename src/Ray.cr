@@ -6,8 +6,6 @@ class Ray
   # セッターとゲッター(パブリック化)
   property orig : Point3
   property dir : Vec3
-  getter orig
-  getter dir
 
   # 引数ありの初期化
   def initialize(origin : Point3, direction : Vec3)
