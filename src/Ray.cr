@@ -30,9 +30,10 @@ class Ray
 end
 
 def ray_color(r : Ray, world : Hittable) : Color
-  rec = HitRecord.new(Point3.new, 0.0, Vec3.new, true)
-
-  if world.hit(r, 0, Float64::INFINITY, rec)
+  rec = HitRecord.new
+  hit_action = world.hit(r, 0, Float64::INFINITY, rec)
+  rec = hit_action[1]
+  if hit_action[0]
     return 0.5 * (rec.normal + Color.new(1, 1, 1))
   end
 
