@@ -7,3 +7,6 @@
 # Run `ameba --only Style/RedundantReturn` for details
 Style/RedundantReturn:
   Enabled: false
+  
+Style/QueryBoolMethods:
+  Enabled: false

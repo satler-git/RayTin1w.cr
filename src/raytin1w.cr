@@ -38,7 +38,7 @@ def raytracer(image_width : Int32)
   # 高さ文繰り返す
   (image_height - 1).downto(0) do |j|
     # 残りのラインの出力
-    STDERR.puts "\rScanlines remaining: #{j} "
+    STDERR.puts "\rScanlines remaining: #{j}"
     # 横幅分繰り返す
     image_width.times do |i|
       u : Float64 = i.to_f64 / (image_width - 1).to_f64
