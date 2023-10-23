@@ -16,7 +16,7 @@ class HitRecord
     @t = 0.0
     @normal = Vec3.new
     @front_face = false
-    @mat_ptr = Metal.new(Color.new)
+    @mat_ptr = Lambertian.new(Color.new)
   end
 
   def initialize(p : Point3, t : Float64, normal : Vec3, front_face : Bool, mat_ptr : Material)
