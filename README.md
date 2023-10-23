@@ -7,10 +7,6 @@ This repo for Ray tracing in one weekend.
 [Original](https://raytracing.github.io/books/RayTracingInOneWeekend.html)
 [Translated](https://inzkyk.booth.pm/items/2186534)
 
-## Next task
-
-1.5 球のレンダリング
-
 ## Installation
 
 Clone the repo.
