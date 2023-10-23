@@ -1,12 +1,14 @@
 require "math"
 require "./Vector"
 require "./Ray"
+require "./Material"
 
 class HitRecord
   property p : Point3
   property t : Float64
   property normal : Vec3
   property front_face : Bool
+  property mat_ptr : Material
   def_clone
 
   def initialize
@@ -14,13 +16,15 @@ class HitRecord
     @t = 0.0
     @normal = Vec3.new
     @front_face = false
+    @mat_ptr = Metal.new(Color.new)
   end
 
-  def initialize(p : Point3, t : Float64, normal : Vec3, front_face : Bool)
+  def initialize(p : Point3, t : Float64, normal : Vec3, front_face : Bool, mat_ptr : Material)
     @p = p
     @t = t
     @normal = normal
     @front_face = front_face
+    @mat_ptr = mat_ptr
   end
 
   def set_face_normal(r : Ray, outward_normal : Vec3)

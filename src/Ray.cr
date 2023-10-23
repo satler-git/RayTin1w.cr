@@ -39,8 +39,11 @@ def ray_color(r : Ray, world : Hittable, depth : Int32) : Color
 
   if hit_action[0]
     # ターゲットがマテリアルの設定
-    target = rec.p + random_in_hemisphere(rec.normal)
-    return 0.5 * ray_color(Ray.new(rec.p, target - rec.p), world, depth - 1)
+    result = rec.mat_ptr.scatter(r, rec)
+    if result[0]
+      return result[3] * ray_color(result[4], world, depth - 1)
+    end
+    return Color.new(0, 0, 0)
   end
 
   unit_direction : Vec3 = unit_vector(r.direction)

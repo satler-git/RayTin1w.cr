@@ -63,6 +63,10 @@ class Vec3
     Vec3.new(@e[0] * t, @e[1] * t, @e[2] * t)
   end
 
+  def *(v : Vec3) : Vec3
+    Vec3.new(@e[0] * v.e[0], @e[1] * v.e[1], @e[2] * v.e[2])
+  end
+
   # 算術演算子の/
   def /(t : Float64) : Vec3
     Vec3.new(@e[0] / t, @e[1] / t, @e[2] / t)
@@ -133,6 +137,10 @@ end
 
 def unit_vector(v : Vec3)
   v / v.length
+end
+
+def reflect(v : Vec3, n : Vec3) : Vec3
+  v - 2*dot(v, n)*n
 end
 
 def random_in_unit_sphere : Vec3
