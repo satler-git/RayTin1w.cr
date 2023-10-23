@@ -152,7 +152,7 @@ end
 
 def random_in_hemisphere(normal : Vec3)
   in_unit_sphere = random_in_unit_sphere
-  if (dot(in_unit_sphere, normal) > 0.0)
+  if dot(in_unit_sphere, normal) > 0.0
     return in_unit_sphere
   else
     return -in_unit_sphere
