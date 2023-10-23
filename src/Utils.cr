@@ -27,11 +27,12 @@ def write_color(pixel_color : Color, samples_per_pixel : Int32)
   r = pixel_color.x
   g = pixel_color.y
   b = pixel_color.z
+
   scale = 1.0 / samples_per_pixel
 
-  r *= scale
-  g *= scale
-  b *= scale
+  r = Math.sqrt(r * scale)
+  g = Math.sqrt(g * scale)
+  b = Math.sqrt(b * scale)
 
   color_space : Float64 = 256
   ir = (color_space * clamp(r, 0.0, 0.999)).round.to_i
