@@ -22,14 +22,6 @@ jobs:
       run: shards install
     - name: Ameba Linter
       run: ./bin/ameba
-    - name: Ameba Linter Fix
-      run: ./bin/ameba --fix
-      if: failure()
-    - uses: EndBug/add-and-commit@v9
-      if: failure()
-      with:
-        author_name: Ameba Linter
-        message: 'Ameba Lint'
 
 
   build:
