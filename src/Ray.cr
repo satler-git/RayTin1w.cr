@@ -29,7 +29,7 @@ end
 
 def ray_color(r : Ray, world : Hittable, depth : Int32) : Color
   rec = HitRecord.new
-  hit_action = world.hit(r, 0.001, Float64::INFINITY, rec)
+  hit_action = world.hit(r, 0.001, MathConst::INFINITY, rec)
   rec = hit_action[1]
 
   # 再帰呼び出しの上限
@@ -38,7 +38,8 @@ def ray_color(r : Ray, world : Hittable, depth : Int32) : Color
   end
 
   if hit_action[0]
-    target = rec.p + rec.normal + random_in_unit_sphere()
+    # ターゲットがマテリアルの設定
+    target = rec.p + random_in_hemisphere(rec.normal)
     return 0.5 * ray_color(Ray.new(rec.p, target - rec.p), world, depth - 1)
   end
 
