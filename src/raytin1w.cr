@@ -22,8 +22,9 @@ def raytracer(image_width : Int32)
   # アスペクト比から画像の高さを計算
   image_height : Int32 = (image_width / aspect_ratio).round.to_i
 
+  # 設定
   samples_per_pixel = 100
-
+  max_depth = 50
   # 画像サイズの出力
   puts "P3\n#{image_width} #{image_height}\n255\n"
 
@@ -47,7 +48,7 @@ def raytracer(image_width : Int32)
         v = (j + random_double()) / (image_height - 1)
 
         r = cam.get_ray(u, v)
-        pixel_color += ray_color(r, world)
+        pixel_color += ray_color(r, world, max_depth)
       end
       write_color(pixel_color, samples_per_pixel)
     end

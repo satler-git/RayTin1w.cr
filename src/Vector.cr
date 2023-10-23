@@ -1,5 +1,7 @@
 # インポート
 require "math"
+require "./MathConst"
+require "./Utils"
 
 # Fload64のオーバーロード
 struct Float64
@@ -105,6 +107,14 @@ class Vec3
   def length : Float64
     Math.sqrt(length_squared())
   end
+
+  def self.random : Vec3
+    Vec3.new(random_double(), random_double(), random_double())
+  end
+
+  def self.random(min : Float64, max : Float64) : Vec3
+    Vec3.new(random_double(min, max), random_double(min, max), random_double(min, max))
+  end
 end
 
 alias Point3 = Vec3
@@ -123,4 +133,28 @@ end
 
 def unit_vector(v : Vec3)
   v / v.length
+end
+
+def random_in_unit_sphere : Vec3
+  p = Vec3.random(-1, 1)
+  while (p.length_squared >= 1) == false
+    p = Vec3.random(-1, 1)
+  end
+  return p
+end
+
+def random_unit_vector : Vec3
+  a = random_double(0, 2*MathConst::PI)
+  z = random_double(-1, 1)
+  r = Math.sqrt(1 - z*z)
+  return Vec3.new(r*Math.cos(a), r*Math.sin(a), z)
+end
+
+def random_in_hemisphere(normal : Vec3)
+  in_unit_sphere = random_in_unit_sphere
+  if (dot(in_unit_sphere, normal) > 0.0)
+    return in_unit_sphere
+  else
+    return -in_unit_sphere
+  end
 end
