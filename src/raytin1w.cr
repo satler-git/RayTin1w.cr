@@ -15,6 +15,14 @@ def raytracer(image_width : Int32)
   aspect_ratio : Float64 = 16.0 / 9.0
   # アスペクト比から画像の高さを計算
   image_height : Int32 = (image_width / aspect_ratio).round.to_i
+  # カメラ
+  lookfrom = Point3.new(3, 3, 2)
+  lookat = Point3.new(0, 0, -1)
+  vup = Vec3.new(0, 1, 0)
+  dist_to_focus = (lookfrom - lookat).length
+  aperture = 2.0
+
+  cam = Camera.new(lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus)
 
   # 設定
   samples_per_pixel = 100
@@ -22,19 +30,19 @@ def raytracer(image_width : Int32)
   # 画像サイズの出力
   puts "P3\n#{image_width} #{image_height}\n255\n"
 
-  # 世界を創る
+  # マテリアルの作成
   material_ground = Lambertian.new(Color.new(0.8, 0.8, 0.0))
   material_center = Lambertian.new(Color.new(0.1, 0.2, 0.5))
   material_left = Dielectric.new(1.5)
   material_right = Metal.new(Color.new(0.8, 0.6, 0.2), 0.0)
 
+  # 世界を創る
   world = HittableList.new
   world.add(Sphere.new(Point3.new(0.0, -100.5, -1.0), 100.0, material_ground))
   world.add(Sphere.new(Point3.new(0.0, 0.0, -1.0), 0.5, material_center))
   world.add(Sphere.new(Point3.new(-1.0, 0.0, -1.0), 0.5, material_left))
+  world.add(Sphere.new(Point3.new(-1.0, 0.0, -1.0), -0.4, material_left))
   world.add(Sphere.new(Point3.new(1.0, 0.0, -1.0), 0.5, material_right))
-
-  cam = Camera.new
 
   # 高さ文繰り返す
   (image_height - 1).downto(0) do |j|
