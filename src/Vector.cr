@@ -1,7 +1,6 @@
 require "math"
 require "./MathConst"
 require "./Utils"
-require "big"
 
 # Fload64のオーバーロード
 struct Float64
