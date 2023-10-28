@@ -2,6 +2,7 @@
 require "math"
 require "./MathConst"
 require "./Utils"
+require "big"
 
 # Fload64のオーバーロード
 struct Float64
@@ -165,4 +166,11 @@ def random_in_hemisphere(normal : Vec3)
   else
     return -in_unit_sphere
   end
+end
+
+def refract(uv : Vec3, n : Vec3, etai_over_etat : Float64) : Vec3
+  cos_theta = Math.min(dot(-uv, n), 1.0)
+  r_out_perp =  etai_over_etat * (uv + cos_theta*n)
+  r_out_parallel = -Math.sqrt((1.0 - r_out_perp.length_squared).abs) * n
+  return r_out_perp + r_out_parallel
 end

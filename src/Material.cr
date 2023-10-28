@@ -24,3 +24,25 @@ class Metal < Material
     return {result, r_in, rec, attenuation, scattered}
   end
 end
+
+class Dielectric < Material
+  @ref_idx : Float64
+
+  def_clone
+
+  def initialize(ri : Float64)
+    @ref_idx = ri
+  end
+
+  def scatter(r_in : Ray, rec : HitRecord) : Tuple(Bool, Ray, HitRecord, Color, Ray)
+    attenuation = Color.new(1.0, 1.0, 1.0)
+    refraction_ratio = rec.front_face ? (1.0 / @ref_idx) : @ref_idx
+
+    unit_direction = unit_vector(r_in.direction)
+    refracted = refract(unit_direction, rec.normal, refraction_ratio)
+
+    scattered = Ray.new(rec.p, refracted)
+
+    return {true, r_in, rec, attenuation, scattered}
+  end
+end
