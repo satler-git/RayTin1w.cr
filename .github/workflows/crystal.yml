@@ -30,23 +30,17 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Install dependencies
-        run: shards install
-      - name: Install converter
-        run: apt install imagemagick
       - name: Build
         run: crystal build ./src/raytin1w.cr --release --no-debug
-      - name: Creat eimage
-        run: ./raytin1w > image.ppm
-      - name: Convert image
-        run: magick image.ppm traced.png
+      - name: Create image
+        run: ./raytin1w > traced.ppm
       - name: Commit file
         run: |
           git config --global user.email "119724672+satler-git@users.noreply.github.com"
           git config --global user.name "satler-git"
           git checkout -b trace-image
-          git add ./traced.png
-          git commit -m "Add traced.png"
+          git add ./traced.ppm
+          git commit -m "Add traced.ppm"
           git push origin trace-image
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
