@@ -33,10 +33,10 @@ jobs:
       - name: Install dependencies
         run: shards install
       - name: Install converter
-        run: apt install imagemagick
+        run: apt update & apt install imagemagick
       - name: Build
         run: crystal build ./src/raytin1w.cr --release --no-debug
-      - name: Creat eimage
+      - name: Create eimage
         run: ./raytin1w > image.ppm
       - name: Convert image
         run: magick image.ppm traced.png
