@@ -31,14 +31,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install dependencies
-        run: shards install
-      - name: Install converter
-        run: |
-          sudo apt update
-          sudo apt install imagemagick
+        run: | 
+          shards install
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
       - name: Build
         run: crystal build ./src/raytin1w.cr --release --no-debug
-      - name: Create eimage
+      - name: Create image
         run: ./raytin1w > image.ppm
       - name: Convert image
         run: magick image.ppm traced.png
