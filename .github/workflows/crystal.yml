@@ -33,7 +33,9 @@ jobs:
       - name: Install dependencies
         run: shards install
       - name: Install converter
-        run: apt update & apt install imagemagick
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
       - name: Build
         run: crystal build ./src/raytin1w.cr --release --no-debug
       - name: Create eimage
