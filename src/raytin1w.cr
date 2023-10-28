@@ -1,16 +1,10 @@
-# インポート
 require "math"
-# 数学定数
 require "./MathConst"
-# 光と色と位置
 require "./Vector"
 require "./Ray"
-# カメラ
 require "./Camera"
-# 当たり判定
 require "./Hittable"
 require "./Sphere"
-# ユーティリティ関数
 require "./Utils"
 
 # raytracer
@@ -29,11 +23,16 @@ def raytracer(image_width : Int32)
   puts "P3\n#{image_width} #{image_height}\n255\n"
 
   # 世界を創る
+  material_ground = Lambertian.new(Color.new(0.8, 0.8, 0.0))
+  material_center = Lambertian.new(Color.new(0.1, 0.2, 0.5))
+  material_left = Dielectric.new(1.5)
+  material_right = Metal.new(Color.new(0.8, 0.6, 0.2), 0.0)
+
   world = HittableList.new
-  world.add(Sphere.new(Point3.new(0, 0, -1), 0.5, Lambertian.new(Color.new(0.7, 0.3, 0.3))))
-  world.add(Sphere.new(Point3.new(0, -100.5, -1), 100, Lambertian.new(Color.new(0.8, 0.8, 0.0))))
-  world.add(Sphere.new(Point3.new(1, 0, -1), 0.5, Metal.new(Color.new(0.8, 0.6, 0.2), 0.3_f64)))
-  world.add(Sphere.new(Point3.new(-1, 0, -1), 0.5, Metal.new(Color.new(0.8, 0.8, 0.8), 1.0_f64)))
+  world.add(Sphere.new(Point3.new(0.0, -100.5, -1.0), 100.0, material_ground))
+  world.add(Sphere.new(Point3.new(0.0, 0.0, -1.0), 0.5, material_center))
+  world.add(Sphere.new(Point3.new(-1.0, 0.0, -1.0), 0.5, material_left))
+  world.add(Sphere.new(Point3.new(1.0, 0.0, -1.0), 0.5, material_right))
 
   cam = Camera.new
 
