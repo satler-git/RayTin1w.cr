@@ -166,6 +166,14 @@ def random_in_hemisphere(normal : Vec3)
   end
 end
 
+def random_in_unit_disk : Vec3
+  p = Vec3.new
+  while !(p.length_squared >= 1)
+    p = Vec3.new(random_double(-1, 1), random_double(-1, 1), 0)
+  end
+  return p
+end
+
 def refract(uv : Vec3, n : Vec3, etai_over_etat : Float64) : Vec3
   cos_theta = Math.min(dot(-uv, n), 1.0)
   r_out_perp = etai_over_etat * (uv + cos_theta*n)
