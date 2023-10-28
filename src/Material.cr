@@ -25,23 +25,40 @@ class Metal < Material
   end
 end
 
+def reflectance(cosine : Float64, ref_idx : Float64)
+  r0 = (1 - ref_idx) / (1 + ref_idx)
+  r0 = r0*r0
+  return r0 + (1 - r0)*((1 - cosine) ** 5)
+end
+
 class Dielectric < Material
-  @ref_idx : Float64
+  @ir : Float64
 
   def_clone
 
   def initialize(ri : Float64)
-    @ref_idx = ri
+    @ir = ri
   end
 
   def scatter(r_in : Ray, rec : HitRecord) : Tuple(Bool, Ray, HitRecord, Color, Ray)
     attenuation = Color.new(1.0, 1.0, 1.0)
-    refraction_ratio = rec.front_face ? (1.0 / @ref_idx) : @ref_idx
+    refraction_ratio = rec.front_face ? (1.0 / @ir) : @ir
 
     unit_direction = unit_vector(r_in.direction)
-    refracted = refract(unit_direction, rec.normal, refraction_ratio)
 
-    scattered = Ray.new(rec.p, refracted)
+    cos_theta = Math.min(dot(-unit_direction, rec.normal), 1.0)
+    sin_theta = Math.sqrt(1.0 - cos_theta*cos_theta)
+
+    cannot_refract = refraction_ratio * sin_theta > 1.0
+    direction = Vec3.new
+
+    if cannot_refract || reflectance(cos_theta, refraction_ratio) > random_double()
+      direction = reflect(unit_direction, rec.normal)
+    else
+      direction = refract(unit_direction, rec.normal, refraction_ratio)
+    end
+
+    scattered = Ray.new(rec.p, direction)
 
     return {true, r_in, rec, attenuation, scattered}
   end
