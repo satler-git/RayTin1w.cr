@@ -7,6 +7,43 @@ require "./Hittable"
 require "./Sphere"
 require "./Utils"
 
+def random_scene : HittableList
+  world = HittableList.new
+  ground_material = Lambertian.new(Color.new(0.5, 0.5, 0.5))
+  world.add(Sphere.new(Point3.new(0, -1000, 0), 1000, ground_material))
+  (-11..10).each do |a|
+    (-11..10).each do |b|
+      choose_mat = random_double()
+      center = Point3.new(a + 0.9 * random_double(), 0.2, b + 0.9 * random_double())
+      if (center - Vec3.new(4, 0.2, 0)).length > 0.9
+        albedo = Color.new
+        if choose_mat < 0.8
+          albedo = Color.random * Color.random
+          sphere_material = Lambertian.new(albedo)
+          world.add(Sphere.new(center, 0.2, sphere_material))
+        elsif choose_mat < 0.95
+          albedo = Color.random(0.5, 1)
+          fuzz = random_double(0, 0.5)
+          sphere_material = Metal.new(albedo, fuzz)
+          world.add(Sphere.new(center, 0.2, sphere_material))
+        else
+          sphere_material = Dielectric.new(1.5)
+          world.add(Sphere.new(center, 0.2, sphere_material))
+        end
+      end
+    end
+  end
+  material1 = Dielectric.new(1.5)
+  material2 = Lambertian.new(Color.new(0.4, 0.2, 0.1))
+  material3 = Metal.new(Color.new(0.7, 0.6, 0.5), 0.0)
+
+  world.add(Sphere.new(Point3.new(0, 1, 0), 1.0, material1))
+  world.add(Sphere.new(Point3.new(-4, 1, 0), 1.0, material2))
+  world.add(Sphere.new(Point3.new(4, 1, 0), 1.0, material3))
+
+  return world
+end
+
 # raytracer
 # レイトレーシング用のメインメソッド
 def raytracer(image_width : Int32)
@@ -16,11 +53,11 @@ def raytracer(image_width : Int32)
   # アスペクト比から画像の高さを計算
   image_height : Int32 = (image_width / aspect_ratio).round.to_i
   # カメラ
-  lookfrom = Point3.new(3, 3, 2)
-  lookat = Point3.new(0, 0, -1)
+  lookfrom = Point3.new(13, 2, 3)
+  lookat = Point3.new(0, 0, 0)
   vup = Vec3.new(0, 1, 0)
-  dist_to_focus = (lookfrom - lookat).length
-  aperture = 2.0
+  dist_to_focus = 10.0_f64
+  aperture = 0.1_f64
 
   cam = Camera.new(lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus)
 
@@ -30,19 +67,8 @@ def raytracer(image_width : Int32)
   # 画像サイズの出力
   puts "P3\n#{image_width} #{image_height}\n255\n"
 
-  # マテリアルの作成
-  material_ground = Lambertian.new(Color.new(0.8, 0.8, 0.0))
-  material_center = Lambertian.new(Color.new(0.1, 0.2, 0.5))
-  material_left = Dielectric.new(1.5)
-  material_right = Metal.new(Color.new(0.8, 0.6, 0.2), 0.0)
-
   # 世界を創る
-  world = HittableList.new
-  world.add(Sphere.new(Point3.new(0.0, -100.5, -1.0), 100.0, material_ground))
-  world.add(Sphere.new(Point3.new(0.0, 0.0, -1.0), 0.5, material_center))
-  world.add(Sphere.new(Point3.new(-1.0, 0.0, -1.0), 0.5, material_left))
-  world.add(Sphere.new(Point3.new(-1.0, 0.0, -1.0), -0.4, material_left))
-  world.add(Sphere.new(Point3.new(1.0, 0.0, -1.0), 0.5, material_right))
+  world = random_scene()
 
   # 高さ文繰り返す
   (image_height - 1).downto(0) do |j|
