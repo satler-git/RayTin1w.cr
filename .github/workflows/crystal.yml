@@ -3,37 +3,50 @@ name: Crystal CI
 on:
   push:
     paths:
-      - 'src/**'
-    branches: [ "main" ]
+      - "src/**"
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   Lint:
-
     runs-on: ubuntu-latest
 
     container:
       image: crystallang/crystal
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Install dependencies
-      run: shards install
-    - name: Ameba Linter
-      run: ./bin/ameba
-
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: shards install
+      - name: Ameba Linter
+        run: ./bin/ameba
 
   build:
-
     runs-on: ubuntu-latest
 
     container:
       image: crystallang/crystal
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Install dependencies
-      run: shards install
-    - name: Build
-      run: crystal build ./src/raytin1w.cr --debug --error-trace
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: shards install
+      - name: Install converter
+        run: apt install imagemagick
+      - name: Build
+        run: crystal build ./src/raytin1w.cr --release --no-debug
+      - name: Creat eimage
+        run: ./raytin1w > image.ppm
+      - name: Convert image
+        run: magick image.ppm traced.png
+      - name: Commit file
+        run: |
+          git config --global user.email "119724672+satler-git@users.noreply.github.com"
+          git config --global user.name "satler-git"
+          git checkout -b trace-image
+          git add ./traced.png
+          git commit -m "Add traced.png"
+          git push origin trace-image
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
