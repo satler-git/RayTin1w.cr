@@ -1,5 +1,9 @@
 name: Crystal CI
 
+permissions:
+  contents: write
+  pull-requests: write
+
 on:
   push:
     paths:
@@ -34,13 +38,9 @@ jobs:
         run: crystal build ./src/raytin1w.cr --release --no-debug
       - name: Create image
         run: ./raytin1w > traced.ppm
-      - name: Commit file
-        run: |
-          git config --global user.email "119724672+satler-git@users.noreply.github.com"
-          git config --global user.name "satler-git"
-          git checkout -b trace-image
-          git add ./traced.ppm
-          git commit -m "Add traced.ppm"
-          git push origin trace-image
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: Add traced.ppm
+          delete-branch: true
+          branch: add-ppm
+          title: Add traced.ppm
