@@ -2,7 +2,7 @@ name: raytin1w
 version: 0.1.0
 
 authors:
-  - satler-git <mitsclatw24@mbr.nifty.com>
+  - satler-git
 
 targets:
   raytin1w:
