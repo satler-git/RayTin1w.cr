@@ -96,7 +96,7 @@ module Raytin1w
   VERSION = "0.1.0"
 
   def self.main
-    raytracer(1920)
+    raytracer(1778)
   end
 
   self.main
