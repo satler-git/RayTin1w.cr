@@ -62,7 +62,7 @@ def raytracer(image_width : Int32)
   cam = Camera.new(lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus)
 
   # 設定
-  samples_per_pixel = 100
+  samples_per_pixel = 90
   max_depth = 50
   # 画像サイズの出力
   puts "P3\n#{image_width} #{image_height}\n255\n"
@@ -96,7 +96,7 @@ module Raytin1w
   VERSION = "0.1.0"
 
   def self.main
-    raytracer(1778)
+    raytracer(1600)
   end
 
   self.main
