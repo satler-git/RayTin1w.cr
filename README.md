@@ -30,7 +30,7 @@ Write to ppm.
 crystal run ./src/raytin1w.cr > image.ppm
 ```
 
-## Developmen
+## Development
 
 ```bash
 shards install
@@ -39,7 +39,7 @@ ameba
 
 ## Contributing
 
-1. Fork it (<https://github.com/your-github-user/raytin1w/fork>)
+1. Fork it (<https://github.com/satler-git/RayTin1w.cr/fork>)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
@@ -47,4 +47,4 @@ ameba
 
 ## Contributors
 
-- [satler-git](https://github.com/your-github-user) - creator and maintainer
+- [satler-git](https://github.com/satler-git) - creator and maintainer
