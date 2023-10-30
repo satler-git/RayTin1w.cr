@@ -38,9 +38,8 @@ jobs:
         run: crystal build ./src/raytin1w.cr --release --no-debug
       - name: Create image
         run: ./raytin1w > traced.ppm
-      - uses: peter-evans/create-pull-request@v5
+      - name: Upload output file
+        uses: actions/upload-artifact@v2
         with:
-          commit-message: Add traced.ppm
-          delete-branch: true
-          branch: add-ppm
-          title: Add traced.ppm
+          name: traced-ppm
+          path: traced.ppm
